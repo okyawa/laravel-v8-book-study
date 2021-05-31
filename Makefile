@@ -17,3 +17,7 @@ shell:
 test:
 	./vendor/bin/sail test
 .PHONY: test
+
+mysql:
+	./vendor/bin/sail mysql
+.PHONY: mysql
