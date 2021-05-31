@@ -39,6 +39,33 @@ services:
           test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
           retries: 3
           timeout: 5s
+#     phpmyadmin:
+#       image: phpmyadmin/phpmyadmin
+#       links:
+#           - mysql:mysql
+#       ports:
+#           - 8080:80
+#       environment:
+#           MYSQL_USERNAME: '${DB_USERNAME}'
+#           MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+#           PMA_HOST: mysql
+#       networks:
+#           - sail
+#    pgsql:
+#        image: postgres:13
+#        ports:
+#            - '${FORWARD_DB_PORT:-5432}:5432'
+#        environment:
+#            PGPASSWORD: '${DB_PASSWORD:-secret}'
+#            POSTGRES_DB: '${DB_DATABASE}'
+#            POSTGRES_USER: '${DB_USERNAME}'
+#            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+#        volumes:
+#            - 'sailpostgresql:/var/lib/postgresql/data'
+#        networks:
+#            - sail
+#        healthcheck:
+#          test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
     redis:
         image: 'redis:alpine'
         ports:
@@ -51,6 +78,12 @@ services:
           test: ["CMD", "redis-cli", "ping"]
           retries: 3
           timeout: 5s
+#     memcached:
+#         image: 'memcached:alpine'
+#         ports:
+#             - '11211:11211'
+#         networks:
+#             - sail
     meilisearch:
         image: 'getmeili/meilisearch:latest'
         ports:
@@ -67,17 +100,19 @@ services:
         networks:
             - sail
     selenium:
-       image: 'selenium/standalone-chrome'
-       volumes:
-            - '/dev/shm:/dev/shm'
-       networks:
-           - sail
+        image: 'selenium/standalone-chrome'
+        volumes:
+              - '/dev/shm:/dev/shm'
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
 volumes:
     sailmysql:
         driver: local
+#    sailpostgresql:
+#        driver: local
     sailredis:
         driver: local
     sailmeilisearch:
