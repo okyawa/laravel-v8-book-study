@@ -22,7 +22,7 @@ if (file_exists(__DIR__.'/../storage/framework/maintenance.php')) {
 
 /*
 |--------------------------------------------------------------------------
-| Register The Auto Loader
+| Register The Auto Loader (オートローダーの読み込み)
 |--------------------------------------------------------------------------
 |
 | Composer provides a convenient, automatically generated class loader for
@@ -35,7 +35,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
-| Run The Application
+| Run The Application (フレームワークの起動)
 |--------------------------------------------------------------------------
 |
 | Once we have the application, we can handle the incoming request using
@@ -46,10 +46,12 @@ require __DIR__.'/../vendor/autoload.php';
 
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
+// アプリケーションの実行、及びHTTPレスポンスの送信
 $kernel = $app->make(Kernel::class);
 
 $response = tap($kernel->handle(
     $request = Request::capture()
 ))->send();
 
+// 終了処理
 $kernel->terminate($request, $response);
