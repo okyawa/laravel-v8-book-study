@@ -24,6 +24,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * When present, controller route declarations will automatically be prefixed with this namespace.
      *
+     * ADR (Action Domain Responder) に変更してControllersディレクトリをActionsに変更したい場合、ここを要変更
+     *
      * @var string|null
      */
     // protected $namespace = 'App\\Http\\Controllers';
