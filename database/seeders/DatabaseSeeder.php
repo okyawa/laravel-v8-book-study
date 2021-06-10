@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Publisher;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // Authorsテーブルにデータ登録を行う処理
+        // authorsテーブルにデータ登録を行う処理
         $this->call(AuthorsTableSeeder::class);
+
+        // publishersテーブルに50件のレコードを作成する
+        Publisher::factory(50)->create();
     }
 }
