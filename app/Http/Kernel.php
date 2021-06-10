@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\HeaderDumper;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -14,6 +15,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        HeaderDumper::class, // 追加した独自ミドルウェア (リクエスト時に最初、レスポンス時に最後に通る)
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
