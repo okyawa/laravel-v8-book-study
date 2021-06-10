@@ -14,5 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+
+        // Authorsテーブルにデータ登録を行う処理
+        $this->call(AuthorsTableSeeder::class);
     }
 }
