@@ -57,7 +57,6 @@ class QueryBuilderAction extends Controller
             ORDER BY bookdetails.published_date DESC
         ";
 
-        //
         /**
          * DBファサードからbooksテーブルのクエリビルダを取得
          */
@@ -76,5 +75,71 @@ class QueryBuilderAction extends Controller
         $connection = $db->connection();
         // 上記インスタンスからクエリビルダを取得
         $query = $connection->table('books');
+
+        /**
+         * select系メソッド
+         */
+        // 取得対象カラム名を指定: select(カラム名配列)
+        $result = DB::table('books')
+            ->select('id', 'name as title')
+            ->get();
+        // selectの中身をSQLで直接指定: selectRaw(SQL文)
+        $result = DB::table('books')
+            ->selectRaw('id, name as title')
+            ->get();
+
+        /**
+         * where系メソッド
+         *
+         *   where系メソッドは連続して呼ぶとAND条件となる
+         *   OR条件を指定する場合は、メソッドの先頭にorを付与
+         *
+         *   whereBetween('カラム名', '範囲')     betweenを使用した範囲指定
+         *   whereNotBetween('カラム名', '範囲')  not betweenを使用した範囲指定
+         *   whereIn('カラム名', '条件値')        inを使用した条件指定
+         *   whereNotIn('カラム名', '条件値')     not inを使用した条件指定
+         *   whereNull('カラム名')               is nullを使用した条件指定
+         *   whereNotNull('カラム名')            is not nullを使用した条件指定
+         */
+        $result = DB::table('books')
+            ->where('id', '>=', 30)
+            ->orWhere('created_at', '>=', '2018-01-01')
+            ->get();
+
+        /**
+         * limitとoffsetメソッド
+         *
+         *   limit()メソッドとtake()メソッドは同じ処理
+         *   offset()メソッドとskip()メソッドは同じ処理
+         */
+        $result = DB::table('books')
+            ->limit(10)
+            ->offset(6)
+            ->get();
+
+        /**
+         * 集計系のメソッド
+         *
+         *   orderBy('カラム名', '方向')               ソート対象のカラムとソート方向を指定するorder by句に置き換わる
+         *   groupBy('カラム名')                      カラムのグルーピングを行うgroup by句に置き換わる
+         *   having('カラム名', '比較演算子', '条件値')  havingを利用した絞り込み
+         *   havingRaw('SQL')                        having句の中身をSQLで直接指定する
+         */
+        $result = DB::table('books')
+            ->orderBy('id')
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        /**
+         * テーブル結合を行うメソッド
+         *
+         *   join('結合テーブル', '結合対象カラム', '演算子', '結合対象カラム')       テーブル間の内部結合で、inner join句に置き換わる
+         *   leftJoin('結合テーブル', '結合対象カラム', '演算子', '結合対象カラム')   テーブル間の左外部結合で、left join句に置き換わる
+         *   rightJoin('結合テーブル', '結合対象カラム', '演算子', '結合対象カラム')  テーブル間の右外部結合で、right join句に置き換わる
+         */
+        $result = DB::table('books')
+            ->leftJoin('authors', 'books.author_id', '=', 'author.id')
+            ->leftJoin('publishers', 'books.publisher_id', '=', 'publishers.id')
+            ->get();
     }
 }
