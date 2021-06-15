@@ -64,4 +64,17 @@ class Author extends Model
         // kanaカラムの値を全角カナに変換
         $this->attributes['kana'] = mb_convert_kana($value, 'KV');
     }
+
+    /**
+     * 著者と紐付く書籍レコードを取得
+     */
+    public function books()
+    {
+        // 一対多関係の定義
+        // hasMany() メソッドの引数
+        // 第1引数にモデル名
+        // 第2引数に内部キー (省略可) (初期値は "モデル名_id")
+        // 第3引数に外部キー (省略可) (初期値は "id")
+        return $this->hasMany(Book::class);
+    }
 }
