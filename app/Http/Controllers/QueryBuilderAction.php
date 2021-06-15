@@ -181,5 +181,21 @@ class QueryBuilderAction extends Controller
             ->where('id', 1)
             ->update(['price' => 10000]);
         // update `bookdetails` set `price` = 10000 `id` = 1
+
+        /**
+         * トランザクションとテーブルロック
+         *
+         *   Eloquentを利用したデータ操作でも利用可能
+         *
+         *   トランザクション系のメソッド
+         *     DB::beginTransaction()     手動でトランザクションを開始
+         *     DB::rollback()             手動でロールバックを実行
+         *     DB::commit()               手動でトランザクションをコミット
+         *     DB::transaction(クロージャ)  クロージャ内でトランザクションを実施
+         *
+         *   悲観的テーブルロックのためのメソッド
+         *     sharedLock()     selectされた行に共有ロックをかけ、トランザクションコミットまで更新を禁止
+         *     lockForUpdate()  selectされた行に排他ロックをかけ、トランザクションコミットまで読み取りと更新を禁止
+         */
     }
 }
