@@ -141,5 +141,45 @@ class QueryBuilderAction extends Controller
             ->leftJoin('authors', 'books.author_id', '=', 'author.id')
             ->leftJoin('publishers', 'books.publisher_id', '=', 'publishers.id')
             ->get();
+
+        /**
+         * クエリを実行して結果を得るメソッド
+         *
+         *   get()    全てのデータを取得 (stdClassオブジェクトのコレクション)
+         *   first()  最初の1行を崇徳 (オブジェクト単体)
+         */
+        $result = DB::table('books')
+            ->select('id', 'name')
+            ->get();
+        foreach ($result as $book) {
+            echo $book->id;
+            echo $book->name;
+        }
+
+        /**
+         * レコード数の取得や計算を行うメソッド
+         *
+         *   count()         データの件数を取得
+         *   max('カラム名')  カラムの最大値を取得
+         *   min('カラム名')  カラムの最小値を取得
+         *   avg('カラム名')  カラムの平均値を取得
+         */
+        $count = DB::table('books')
+            ->count();
+        echo $count;
+
+        /**
+         * データの登録、更新、削除
+         *
+         *   insert(['カラム' => '値', ...])  insertによるデータ登録
+         *   update(['カラム' => '値', ...])  updateによるデータ登録
+         *   delete()                        deleteによるデータ削除
+         *   truncate()                      truncateによる全行削除
+         */
+        // 絞り込んだデータに対してい更新を実施
+        DB::table('bookdetails')
+            ->where('id', 1)
+            ->update(['price' => 10000]);
+        // update `bookdetails` set `price` = 10000 `id` = 1
     }
 }
