@@ -197,5 +197,47 @@ class QueryBuilderAction extends Controller
          *     sharedLock()     selectされた行に共有ロックをかけ、トランザクションコミットまで更新を禁止
          *     lockForUpdate()  selectされた行に排他ロックをかけ、トランザクションコミットまで読み取りと更新を禁止
          */
+
+        /**
+         * ベーシックなSQL実行コマンド (SQL文をそのまま記述)
+         *
+         *   DB::select('selectクエリ', [クエリに結合する引数]) select文によるデータ抽出
+         *   DB::insert('insertクエリ', [クエリに結合する引数]) insert文によるデータ登録
+         *   DB::update('updateクエリ', [クエリに結合する引数]) update文によるデータ更新で、変更された行数が返却される
+         *   DB::delete('deleteクエリ', [クエリに結合する引数]) delete文によるデータ更新で、削除された行数が返却される
+         *   DB::statement('sqlクエリ', [クエリに結合する引数]) 上記以外のSQLを実行する場合に利用
+         */
+        // DB::selectを使用したデータ抽出
+        $sql = "SELECT
+                    bookdetails.isbn,
+                    books.name as title,
+                    authors.name as author,
+                    bookdetails.price
+                FROM
+                    books
+                LEFT JOIN
+                    bookdetails ON books.id = bookdetails.book_id
+                LEFT JOIN
+                    authors ON books.author_id = authors.id
+                WHERE
+                    bookdetails.price >= ?
+                AND
+                    bookdetails.published_date >= ?
+                ORDER BY bookdetails.published_date DESC";
+        $results = DB::select($sql, ['1000', '2011-01-01']);
+        // 利用方法
+        foreach ($results as $book) {
+            echo $book->isbn;
+            echo $book->name;
+        }
+
+        // DBインスタンスの裏で動作しているPDOオブジェクトを直接利用することも可能
+        $pdo = DB::connection()->getPdo​();
+        $statement = $pdo->prepare($sql);
+        $statement->execute(['1000', '2011-01-01']);
+        $results = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+        // ベーシックによるクエリ実行やPDOオブジェクトを直接利用する方が、処理速度は早くなる
+        // コーディングの容易さとのトレードオフとなるので、状況に応じて使い分け
     }
 }
