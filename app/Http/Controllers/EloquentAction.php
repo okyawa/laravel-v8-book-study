@@ -7,9 +7,9 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Eloquent extends Controller
+class EloquentAction extends Controller
 {
-    public function index(Request $request)
+    public function __invoke(Request $request)
     {
         /**
          * リレーション定義されたカラムの呼び出し
