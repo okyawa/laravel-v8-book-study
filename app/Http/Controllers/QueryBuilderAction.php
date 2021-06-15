@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -55,5 +56,25 @@ class QueryBuilderAction extends Controller
                 bookdetails.published_date >= '2011-01-01'
             ORDER BY bookdetails.published_date DESC
         ";
+
+        //
+        /**
+         * DBファサードからbooksテーブルのクエリビルダを取得
+         */
+        $query = DB::table('books');
+
+        /**
+         * Connectionオブジェクトからクエリビルダを取得
+         *
+         *   実際のデータ操作でクエリビルダを使う場合は、専用クラスを作成
+         *   コンストラクタインジェクションを利用して、クエリビルダ提供元のクラスを外から与えると、
+         *   拡張性やテスト容易性を保つことも可能
+         */
+        // サービスコンテナからDatabaseManagerクラスのインスタンスを取得
+        $db = Application::getInstance()->make('db');
+        // 上記インスタンスからConnectionクラスのインスタンスを取得
+        $connection = $db->connection();
+        // 上記インスタンスからクエリビルダを取得
+        $query = $connection->table('books');
     }
 }
