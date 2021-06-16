@@ -17,12 +17,12 @@ class PublisherAction extends Controller
         $this->publisher = $publisher;
     }
 
-    /*
-    CURLリクエスト例
-        curl 'http://localhost/api/publishers' \
-            --request POST \
-            --data 'name=テスト出版社＆address=東京都千代田区神田猿楽町1丁目5-15'
-    */
+    /**
+     * リソースの作成
+     *
+     * CURLリクエスト例
+     * $ curl -X POST "http://localhost/api/publishers" -H "Content-Type: application/json" -d '{"name":"テスト","address":"東京都千代田区神田猿楽町1丁目5-15"}'
+     */
     public function create(Request $request)
     {
         // nameで指定された名前と同じ出版社が存在しないかを確認
@@ -34,6 +34,5 @@ class PublisherAction extends Controller
         $id = $this->publisher->store($request->name, $request->address);
         return response('', Response::HTTP_CREATED)
             ->header('Location', '/api/publishers/', $id);
-
     }
 }
