@@ -71,6 +71,14 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        // 独自ドライバの登録例
+        /*
+        'users' => [
+            'driver' => 'cache_eloquent',
+            'model' => App\User::class,
+        ],
+        */
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
