@@ -43,7 +43,11 @@ return [
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'user_token',
+            // URLクエリパラメータをapi_tokenから't'に変更
+            'input_key' => 't',
+            // データベースなどで利用するカラム名をapi_tokenからtokenへ変更
+            'storage_key' => 'token',
             'hash' => false,
         ],
     ],

@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            // 標準設定のtokenドライバをデフォルトのまま利用する場合に追加
+            // $table->string('api_token', 60)->unique();
         });
     }
 
