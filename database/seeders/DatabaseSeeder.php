@@ -5,6 +5,10 @@ namespace Database\Seeders;
 use App\Models\Publisher;
 use Illuminate\Database\Seeder;
 
+/**
+ * 実行コマンド
+ * $ php artisan db:seed
+ */
 class DatabaseSeeder extends Seeder
 {
     /**
