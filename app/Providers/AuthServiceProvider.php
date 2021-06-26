@@ -35,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
                     $app->make('hash'),
                     $config['model'],
                     $app->make('cache')->driver()
-                )
+                );
             }
         );
     }
