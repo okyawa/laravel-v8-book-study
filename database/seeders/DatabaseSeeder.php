@@ -25,5 +25,12 @@ class DatabaseSeeder extends Seeder
 
         // publishersテーブルに50件のレコードを作成する
         Publisher::factory(50)->create();
+
+        // usersとuser_tokensのテーブルにレコードを追加
+        $this->call(
+            [
+                UserSeeder::class
+            ]
+        );
     }
 }

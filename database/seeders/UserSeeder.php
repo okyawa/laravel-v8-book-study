@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Seeder;
@@ -24,13 +25,14 @@ class UserSeeder extends Seeder
      */
     public function run(DatabaseManager $manager, Hasher $hasher): void
     {
+        $faker = Factory::create('ja_JP');
         $datetime = Carbon::now()->toDateTimeString();
         // usersテーブルにレコードをインサートし、インサート時に発行されたプライマリーキーを取得
         $userId = $manager->table('users')
             ->insertGetId(
                 [
-                    'name' => 'laravel user',
-                    'email' => 'mail@example.com',
+                    'name' => $faker->name,
+                    'email' => $faker->email,
                     'password' => $hasher->make('password'),
                     'created_at' => $datetime,
                 ]
