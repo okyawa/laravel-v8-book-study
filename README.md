@@ -1,5 +1,8 @@
 『PHP フレームワーク Laravel Webアプリケーション開発 バージョン8.x対応』本のサンプルコードを写経したもの
 
+- [サンプルコード掲載のGitHubリポジトリ一覧 | laravel-socym2021 - GitHub](https://github.com/laravel-socym2021)
+
+
 ---
 
 

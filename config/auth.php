@@ -48,6 +48,8 @@ return [
             'input_key' => 't',
             // データベースなどで利用するカラム名をapi_tokenからtokenへ変更
             'storage_key' => 'token',
+            // hashを有効にするとデータベースなどへの問い合わせに
+            // sha256でハッシュ化をされたトークンを利用
             'hash' => false,
         ],
     ],
@@ -87,6 +89,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'user_token' => [
+            'driver' => 'user_token',
+        ]
     ],
 
     /*
