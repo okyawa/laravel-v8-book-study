@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticlePayloadAction;
 use App\Http\Controllers\PublisherAction;
+use App\Http\Controllers\UserAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/payload', ArticlePayloadAction::class);
 Route::post('/publishers', [PublisherAction::class, 'create']);
+Route::get('/users', UserAction::class);
