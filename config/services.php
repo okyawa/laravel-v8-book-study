@@ -30,4 +30,17 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /**
+     * GitHub Auth認証を利用する例
+     *
+     * GitHubのOAuthを利用する場合
+     * GitHubの [setting]→[Developers settings] に遷移し、
+     * [OAuth Apps]の[New OAuth APP] でアプリケーションを登録
+     * リスト 6.4.2.1
+     */
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => 'http://localhost/register/callback',
+    ],
 ];
