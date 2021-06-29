@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\ArticlePayloadAction;
-use App\Http\Controllers\LoginAction;
 use App\Http\Controllers\PublisherAction;
-use App\Http\Controllers\RetrieveAction;
 use App\Http\Controllers\UserAction;
+use App\Http\Controllers\User\LoginAction;
+use App\Http\Controllers\User\RetrieveAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
