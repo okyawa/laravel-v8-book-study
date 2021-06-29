@@ -52,6 +52,12 @@ return [
             // sha256でハッシュ化をされたトークンを利用
             'hash' => false,
         ],
+
+        'jwt' => [
+            // jwtドライバを追加
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
     ],
 
     /*
