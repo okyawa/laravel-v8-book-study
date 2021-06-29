@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ArticlePayloadAction;
+use App\Http\Controllers\LoginAction;
 use App\Http\Controllers\PublisherAction;
+use App\Http\Controllers\RetrieveAction;
 use App\Http\Controllers\UserAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +26,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/payload', ArticlePayloadAction::class);
 Route::post('/publishers', [PublisherAction::class, 'create']);
 Route::get('/users', UserAction::class);
+
+/**
+ * JWT認証 ルーティング作成例
+ *
+ * リスト 6.3.3.1
+ */
+Route::group(['middleware' => 'api'], function ($router) {
+    // ログインを行わない、アクセストークンを発行するルート
+    Route::post('/user/login', LoginAction::class);
+    // アクセストークンを用いて、認証ユーザーの情報を取得するルート
+    Route::post('/users/', RetrieveAction::class)
+        ->middleware('auth:jwt');
+});
