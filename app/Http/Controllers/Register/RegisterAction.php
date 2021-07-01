@@ -25,5 +25,10 @@ final class RegisterAction extends Controller
 
         // Socialiteファサードで記述する場合
         // return Socialite::driver('github')->redirect();
+
+        // リスト 6.4.4.5: amazonドライバの利用例
+        // return $factory->driver('amazon')->redirect();
+        // または
+        // return Socialite::driver('amazon')->redirect();
     }
 }

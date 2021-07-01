@@ -31,7 +31,7 @@ return [
     ],
 
     /**
-     * GitHub Auth認証を利用する例
+     * GitHub OAuth認証を利用する例
      *
      * GitHubのOAuthを利用する場合
      * GitHubの [setting]→[Developers settings] に遷移し、
@@ -41,6 +41,21 @@ return [
     'github' => [
         'client_id' => env('GITHUB_CLIENT_ID'),
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => 'http://localhost/register/callback',
+    ],
+
+    /**
+     * Amazon OAuth認証を利用する例
+     *
+     * AmazonのOAuth認証を利用するには、
+     * [Login with Amazon]の[Developer Center]→[Getting Started]から[Web]を選択
+     * https://login.amazon.com/website
+     * [Register new application]で利用するアプリケーションを登録
+     * 登録すると、ClientIDとClientSecretが発行される
+     */
+    'amazon' => [
+        'client_id' => env('AMAZON_CLIENT_ID'),
+        'client_secret' => env('AMAZON_CLIENT_SECRET'),
         'redirect' => 'http://localhost/register/callback',
     ],
 ];
