@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listeners;
 
 use App\Events\PublishProcessor;
@@ -36,6 +38,13 @@ class MessageSubscriber
      */
     public function handle(PublishProcessor $event)
     {
-        //
+        /**
+         * 送信データを格納するApp\Events\PublishProcessorインスタンス(イベントクラス)が引数として渡される
+         * アプリケーションでこのイベントを実行するには、実行までにイベントクラスとリスナークラスを登録しておく必要がある
+         * イベントクラスの登録はどこでも構わないが、標準で用意されているApp\Providers\EventServiceProviderクラスを利用するのが一般的
+         *
+         * リスト: 7.1.3.3
+         */
+        var_dump($event->getInt());
     }
 }

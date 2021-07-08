@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
@@ -38,14 +40,24 @@ class PublishProcessor
      */
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    private $int;
+
     /**
-     * Create a new event instance.
+     * イベントは発火した事実を伝えるものであるため、不要な状態変化を防ぐため
+     * イミュータブルオブジェクト(インスタンス生成後に値を変更できないオブジェクト)として作成
+     * このクラスはイベント名とデータ送信両方の役割を担うことになる
+     * イベントに反応するリスナーとして、App\Listeners\MessageSubscriberクラスをイベントに反応させるクラスとして利用
      *
-     * @return void
+     * リスト: 7.1.3.1
      */
-    public function __construct()
+    public function __construct(int $int)
     {
-        //
+        $this->int = $int;
+    }
+
+    public function getInt(): int
+    {
+        return $this->int;
     }
 
     /**
