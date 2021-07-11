@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Events\PublishProcessor;
+use App\Listeners\MessageQueueSubscriber;
 use App\Listeners\MessageSubscriber;
 use App\Listeners\RegisteredListener;
 use Illuminate\Auth\Events\Registered;
@@ -42,7 +43,13 @@ class EventServiceProvider extends ServiceProvider
          */
         PublishProcessor::class => [
             MessageSubscriber::class,
+            MessageQueueSubscriber::class, // Listenerを追加 (リスト 7.1.5.3)
         ],
+        /**
+         * 非同期Listenerの起動コマンド
+         * $ php artisan queue:work
+         * リスト 7.1.5.6
+         */
     ];
 
     /**
