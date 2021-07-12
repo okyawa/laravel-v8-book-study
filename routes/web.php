@@ -2,6 +2,7 @@
 
 use App\Events\PublishProcessor;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\PdfGeneratorAction;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/event', EventController::class);
+
+Route::get('pdf', PdfGeneratorAction::class);
 
 // Route::get('/home', function() {
 //     return view('home');

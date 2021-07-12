@@ -14,6 +14,10 @@ shell:
 	./vendor/bin/sail shell
 .PHONY: shell
 
+root-shell:
+	./vendor/bin/sail root-shell
+.PHONY: root-shell
+
 test:
 	./vendor/bin/sail test
 .PHONY: test
