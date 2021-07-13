@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
          * リスト 7.2.4.2
          */
         $this->app->bind(Pdf::class, function() {
-            return new PDF('/usr/bin/wkhtmltopdf');
+            return new PDF('/usr/local/bin/wkhtmltopdf');
         });
     }
 
