@@ -28,6 +28,7 @@ final class PdfGeneratorAction extends Controller
     public function __invoke(): void
     {
         $generator = new PdfGenerator(storage_path('pdf/sample.pdf'));
+
         // コンストラクタインジェクションを利用して
         // Illuminate\Contracts\Bus\Dispatcherインターフェースの
         // dispatchメソッドで実行指示。Busファサードを使った記述も可能
@@ -48,5 +49,18 @@ final class PdfGeneratorAction extends Controller
          * リスト 7.2.4.7
          */
         PdfGenerator::dispatch(storage_path('pdf/sample.pdf'));
+
+        /**
+         * ジョブキューの指定
+         *
+         * default以外のキューを指定する場合は、--queueオプションを利用してqueueを指定
+         *
+         * キューの起動コマンド
+         * $ php artisan queue:work --queue pdf.generator
+         *
+         * リスト7.2.5.1
+         */
+        // dispatchヘルパ関数でどのqueueで処理を行うかを指定
+        dispatch($generator)->onQueue('pdf.generator');
     }
 }
