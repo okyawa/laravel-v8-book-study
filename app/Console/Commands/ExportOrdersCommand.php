@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\UseCase\ExportOrderUseCase;
+use Carbon\CarbonImmutable;
 use Illuminate\Console\Command;
 
 /**
@@ -33,24 +35,35 @@ class ExportOrdersCommand extends Command
      */
     protected $description = '購入情報を出力する';
 
+    private ExportOrderUseCase $useCase;
+
     /**
      * Create a new command instance.
      *
+     * Commandクラスのコンストラクタでは、サービスコンテナによるDIが行われるので、
+     * ユースケースクラスのインスタンスがインジェクトされる
+     *
      * @return void
      */
-    public function __construct()
+    public function __construct(ExportOrderUseCase $useCase)
     {
         parent::__construct();
+
+        $this->useCase = $useCase;
     }
 
     /**
      * Execute the console command.
      *
+     * リスト 8.2.4.2
+     *
      * @return int
      */
     public function handle()
     {
-        $this->info('Hello');
+        $tsv = $this->useCase->run(CarbonImmutable::today());
+        echo $tsv, PHP_EOL;
+
         return 0;
     }
 }
