@@ -68,6 +68,17 @@ class OutputCommand extends Command
         $this->comment('very_verbose', OutputInterface::VERBOSITY_VERY_VERBOSE); // -vv, -vvvで出力
         $this->info('debug', OutputInterface::VERBOSITY_DEBUG); // -vvvでのみ出力
 
+        /**
+         * CommandクラスからたのCommandを実行
+         *
+         * Commandクラスから他のコマンドを実行する場合は、Commandクラスのcallメソッドでも代用可能
+         * リスト 8.1.5.3
+         */
+        $ret = $this->call('hello:class', [
+            'name' => 'Johann',
+            '--switch' => true,
+        ]);
+
         return 0;
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+use App\Console\Kernel;
 use App\Http\Controllers\ArticlePayloadAction;
 use App\Http\Controllers\PublisherAction;
 use App\Http\Controllers\UserAction;
 use App\Http\Controllers\User\LoginAction;
 use App\Http\Controllers\User\RetrieveAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,4 +40,25 @@ Route::group(['middleware' => 'api'], function ($router) {
     // アクセストークンを用いて、認証ユーザーの情報を取得するルート
     Route::post('/users/', RetrieveAction::class)
         ->middleware('auth:jwt');
+});
+
+/**
+ * Laravelアプリケーション内部からCommandの実行
+ *
+ * リスト 8.1.5.1, 8.1.5.2
+ */
+// 引数なし
+Route::get('/hello', function () {
+    Artisan::call('hello:class');
+});
+// 引数あり
+Route::get('/hello', function () {
+    Artisan::call('hello:class', [
+        'name' => 'Johann',
+        '--switch' => true,
+    ]);
+});
+// Artisanファサードを使わずにCommand実行
+Route::get('/hello', function (Kernel $artisan) {
+    $artisan->call('hello:class');
 });
