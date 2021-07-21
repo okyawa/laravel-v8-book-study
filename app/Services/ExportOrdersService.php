@@ -40,7 +40,7 @@ final class ExportOrdersService
         // クエリビルダを使って購入者情報の取得
         return $this->connection
             ->table('orders')
-            ->join('order_details', 'order.order_code', '=', 'order_details.order_code')
+            ->join('order_details', 'orders.order_code', '=', 'order_details.order_code')
             ->select(
                 [
                     'orders.order_code',
@@ -57,7 +57,7 @@ final class ExportOrdersService
                     'order_details.*',
                 ]
             )
-            ->where('order_date', '>=', $date->toString())
+            ->where('order_date', '>=', $date->toDateString())
             ->where('order_date', '<', $date->addDay()->toDateString())
             ->orderBy('orders.order_date')
             ->orderBy('orders.order_code')
