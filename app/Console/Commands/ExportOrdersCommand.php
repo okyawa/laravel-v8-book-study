@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\UseCase\ExportOrderUseCase;
+use App\UseCases\ExportOrderUseCase;
 use Carbon\CarbonImmutable;
 use Illuminate\Console\Command;
 

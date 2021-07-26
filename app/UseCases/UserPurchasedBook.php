@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCase;
+namespace App\UseCases;
 
 use App\Events\PublishProcessor;
 use App\Models\User;
