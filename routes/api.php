@@ -62,3 +62,16 @@ Route::get('/hello', function () {
 Route::get('/hello', function (Kernel $artisan) {
     $artisan->call('hello:class');
 });
+
+
+/**
+ * 購入情報バッチ処理JSON出力の仮受信API
+ *
+ * リスト 8.3.3.4
+ */
+Route::post('/import-orders', function (Request $request) {
+    $json = $request->getContent();
+    file_put_contents('/tmp/orders', $json);
+
+    return response('ok');
+});
