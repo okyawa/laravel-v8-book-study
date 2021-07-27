@@ -1,0 +1,10 @@
+# リスト 8.3.4.7 crontabコマンドによる設定
+#
+# 毎日午前05時00分にコマンドを実行する例
+# 実行コマンドには、artisan app:send-ordersコマンドを絶対パス指定
+# コマンド引数には前日の日付を指定するので、dateコマンドで前日の日付を取得
+#
+# crontabコマンドの引数にテキストファイルを指定すると、その内容をcronの設定として出力される
+# $ crontab crontab.txt
+
+0 5 * * * /usr/bin/php /var/www/html/artisan app:send-orders `date --date 'yesterday' +%y%m%d`
