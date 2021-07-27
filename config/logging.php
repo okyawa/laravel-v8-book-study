@@ -100,6 +100,17 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        /**
+         * バッチ処理用ログチャンネルを追加
+         * リスト 8.3.5.4
+         */
+        'send-orders' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/send-orders.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
     ],
 
 ];

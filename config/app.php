@@ -176,6 +176,11 @@ return [
         App\Providers\PasswordServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * リスト 8.3.5.6
+         */
+        App\Providers\BatchServiceProvider::class,
+
     ],
 
     /*
