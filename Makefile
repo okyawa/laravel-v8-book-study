@@ -22,9 +22,9 @@ test-unit:
 .PHONY: test-unit
 
 # Featureのユニットテストを実行
-test-unit:
+test-feature:
 	php artisan test --group=feature
-.PHONY: test-unit
+.PHONY: test-feature
 
 
 #
@@ -56,7 +56,7 @@ root-shell:
 	./vendor/bin/sail root-shell
 .PHONY: root-shell
 
-# sailでテストを実行
+# コンテナ外からsailでテストを実行
 sail-test:
 	./vendor/bin/sail test
 .PHONY: test

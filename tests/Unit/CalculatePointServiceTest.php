@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Services\CalculatePointService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,12 +20,24 @@ use PHPUnit\Framework\TestCase;
 class CalculatePointServiceTest extends TestCase
 {
     /**
-     * A basic unit test example.
+     * リスト 9.1.3.1　購入金額が0のときのテスト
      *
-     * @return void
+     * @test
      */
-    public function test_example()
+    public function calcPoint_購入金額が0ならポイントは0()
     {
-        $this->assertTrue(true);
+        $result = CalculatePointService::calcPoint(0);
+        $this->assertSame(0, $result);
+    }
+
+    /**
+     * リスト 9.1.3.4 購入金額が1000のときのテスト
+     *
+     * @test
+     */
+    public function calcPoint_購入金額が1000ならポイントは0()
+    {
+        $result = CalculatePointService::calcPoint(1000);
+        $this->assertSame(10, $result);
     }
 }
