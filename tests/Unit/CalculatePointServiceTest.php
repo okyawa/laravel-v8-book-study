@@ -40,4 +40,34 @@ class CalculatePointServiceTest extends TestCase
         $result = CalculatePointService::calcPoint(1000);
         $this->assertSame(10, $result);
     }
+
+    /**
+     * データプロバイダを利用したテストメソッド
+     *
+     * リスト 9.1.4.2
+     *
+     * @test
+     * @dataProvider dataProvider_for_calcPoint
+     */
+    public function calcPoint(int $expected, int $amount)
+    {
+        $result = CalculatePointService::calcPoint($amount);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * データプロバイダメソッド例
+     *
+     * リスト 9.1.4.1 - 9.1.4.6
+     */
+    public function dataProvider_for_calcPoint(): array
+    {
+        return [
+            '購入金額が0なら0ポイント      ' => [0, 0],
+            '購入金額が999なら0ポイント    ' => [0, 999],
+            '購入金額が1000なら0ポイント   ' => [10, 1000],
+            '購入金額が9999なら99ポイント  ' => [99, 9999],
+            '購入金額が10000なら200ポイント' => [200, 10000],
+        ];
+    }
 }

@@ -6,7 +6,7 @@ path=
 # 全てのユニットテスト実行
 # $ make test
 # ファイルのパスを指定してユニットテストを実行する例
-# $ make test path=unit_tests/app/Shop/Models/ProductJson/ProductJsonTest.php
+# $ make test path=tests/Unit/CalculatePointServiceTest.php
 test:
 ifdef path
 	./vendor/bin/phpunit ${path}
