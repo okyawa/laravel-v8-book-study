@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+リスト 9.1.7.1 phpunitのテストの設定
+-->
+<!-- ↓PHPUnit動作に関する設定-->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
 >
+<!-- ↑PHPUnit動作に関する設定-->
+<!-- ↓テスト対象ディレクトリ、フアイルの指定・グループ化 -->
     <testsuites>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
@@ -12,11 +18,15 @@
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
     </testsuites>
+<!-- ↑テスト対象ディレクトリ、フアイルの指定・グループ化 -->
+<!-- ↓カバレッジ設定 -->
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./app</directory>
         </include>
     </coverage>
+<!-- ↑カバレッジ設定 -->
+<!-- ↓PHP動作に関する設定・環境変数 -->
     <php>
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
@@ -28,4 +38,5 @@
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
     </php>
+<!-- ↑PHP動作に関する設定・環境変数 -->
 </phpunit>
