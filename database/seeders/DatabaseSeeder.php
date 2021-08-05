@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\EloquentCustomer;
+use App\Models\EloquentCustomerPoint;
 use App\Models\Publisher;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Connection;
@@ -54,6 +56,26 @@ class DatabaseSeeder extends Seeder
                 $this->orders();
                 $this->orderDetails();
             }
+        );
+
+        $now = CarbonImmutable::now();
+        // customersテーブルにレコードを追加
+        EloquentCustomer::create(
+            [
+                'id' => 1,
+                'name' => 'name1',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]
+        );
+        // customer_pointsテーブルにレコードを追加
+        EloquentCustomerPoint::create(
+            [
+                'customer_id' => 1,
+                'point' => 100,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]
         );
     }
 
