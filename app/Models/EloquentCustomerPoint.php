@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  * このファイルの生成コマンド
  * $ php artisan make:model EloquentCustomerPoint
  *
+ * リスト 9.2.1.9
+ *
  * @property int $customer_id
  * @property int $point
  */
@@ -19,7 +21,7 @@ class EloquentCustomerPoint extends Model
     use HasFactory;
 
     protected $table = 'customer_points';
-    public $timestamps = false;
+    public $timestamps = false; // 自動設定されるタイムスタンプは不要
 
     public function addPoint(int $customerId, int $point): bool
     {

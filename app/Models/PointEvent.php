@@ -8,17 +8,15 @@ use Carbon\CarbonImmutable;
 
 /**
  * 9-2-1 データベーステスト
+ *
+ * リスト 9.2.1.7
  */
 final class PointEvent
 {
-    /** @var int */
-    private $customerId;
-    /** @var string */
-    private $event;
-    /** @var int */
-    private $point;
-    /** @var CarbonImmutable */
-    private $createdAt;
+    private int $customerId;
+    private string $event;
+    private int $point;
+    private CarbonImmutable $createdAt;
 
     public function __construct(
         int $customerId,

@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  * このファイルの生成コマンド
  * $ php artisan make:model EloquentCustomerPointEvent
  *
+ * リスト 9.2.1.8
+ *
  * @property int $id
  * @property int $customer_id
  * @property string $event
