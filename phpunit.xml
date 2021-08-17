@@ -31,12 +31,13 @@
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
-        <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
-        <!-- <server name="DB_DATABASE" value=":memory:"/> -->
         <server name="MAIL_MAILER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
+        <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
+        <!-- テスト用データベースを指定 -->
+        <server name="DB_DATABASE" value="app_test"/>
     </php>
 <!-- ↑PHP動作に関する設定・環境変数 -->
 </phpunit>

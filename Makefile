@@ -66,6 +66,16 @@ mysql:
 	./vendor/bin/sail mysql
 .PHONY: mysql
 
+# ユニットテスト用のMySQLのコンテナに接続
+mysql-test:
+	mysql -h 127.0.0.1 -P 3306 -u sail -p password
+.PHONY: mysql-test
+
+# ユニットテスト用のMySQLコンテナ内からMySQLに接続 (※入力後に聞かれるパスワードは .env.testing に記載しているパスワード)
+mysql-connect:
+	mysql -h 127.0.0.1 -P 3306 -u root -p
+.PHONY: mysql-connect
+
 # 使っていないDockerイメージを削除
 prune:
 	docker image prune
