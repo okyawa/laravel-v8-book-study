@@ -4,14 +4,25 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use App\Models\EloquentCustomer;
+use App\Models\EloquentCustomerPointEvent;
+use App\Models\PointEvent;
+use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 /**
  * EloquentCustomerPointEventTestクラス
  *
  * ユニットテスト用のデータベース追加
  * CREATE DATABASE app_test;
+ *
+ * このファイルの生成コマンド
+ * $ php artisan make:test EloquentCustomerPointEventTest --unit
+ *
+ * データベーステストにLaravelの機能を利用するので、Tests\TestCaseクラスを継承
+ *
+ * リスト 9.2.3.1
  */
 class EloquentCustomerPointEventTest extends TestCase
 {
@@ -37,12 +48,38 @@ class EloquentCustomerPointEventTest extends TestCase
     use RefreshDatabase; // 自動でマイグレーション実行
 
     /**
-     * A basic unit test example.
-     *
-     * @return void
+     * @test
      */
-    public function test_example()
+    public function register()
     {
-        $this->assertTrue(true);
+        // テストに必要なレコードを登録
+        $customerId = 1;
+        EloquentCustomer::factory()->create(
+            [
+                'id' => $customerId,
+            ]
+        );
+
+        // テスト対象メソッドの実行
+        $event = new PointEvent(
+            $customerId,
+            '加算イベント',
+            100,
+            CarbonImmutable::create(2018, 8, 4, 12, 34, 56)
+        );
+        $sut = new EloquentCustomerPointEvent();
+        $sut->register($event);
+
+        // テスト結果のアサーション
+        // * assertDatabaseHasメソッドでは、第1引数で指定したテーブルに第2引数で指定したレコードが存在するかを検証
+        $this->assertDatabaseHas(
+            'customer_point_events',
+            [
+                'customer_id' => $customerId,
+                'event' => $event->getEvent(),
+                'point' => $event->getPoint(),
+                'created_at' => $event->getCreatedAt(),
+            ]
+        );
     }
 }

@@ -67,8 +67,8 @@ mysql:
 .PHONY: mysql
 
 # ユニットテスト用のMySQLのコンテナに接続
-mysql-test:
-	mysql -h 127.0.0.1 -P 3306 -u sail -p password
+mysql-test-shell:
+	docker exec -it sample_mysql.test_1 bash
 .PHONY: mysql-test
 
 # ユニットテスト用のMySQLコンテナ内からMySQLに接続 (※入力後に聞かれるパスワードは .env.testing に記載しているパスワード)
