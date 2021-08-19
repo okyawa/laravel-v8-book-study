@@ -9,7 +9,6 @@
 ## 初期設定
 
 - `.env.example` をコピーして `.env` を設置し、伏せ字の部分を指定
-- `.env` をコピーして `.env.testing` を設置し、 `DB_DATABASE` だけを `app_test` に変更
 
 
 ## 7-2-5 で使うwkhtmltopdfをLaravel Sail内にインストール

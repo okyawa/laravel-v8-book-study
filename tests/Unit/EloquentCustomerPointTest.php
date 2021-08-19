@@ -32,14 +32,14 @@ class EloquentCustomerPointTest extends TestCase
 
         // Eloquentでレコード追加
         // * Factoryを利用せずにテストに必要なレコードを登録する方法もある
-        EloquentCustomerPoint::unguard();
+        EloquentCustomerPoint::unguard(); // セキュリティー解除 (※Laravelではセキュリティの観点から、ある程度固まったデータをDBに挿入することができないため)
         EloquentCustomerPoint::create(
             [
                 'customer_id' => $customerId,
                 'point' => 100,
             ]
         );
-        EloquentCustomerPoint::reguard();
+        EloquentCustomerPoint::reguard(); // セキュリティーを再設定
 
         // テスト対象メソッドの実行
         $eloquent = new EloquentCustomerPoint();

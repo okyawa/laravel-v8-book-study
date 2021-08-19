@@ -28,6 +28,7 @@
 <!-- ↑カバレッジ設定 -->
 <!-- ↓PHP動作に関する設定・環境変数 -->
     <php>
+        <!-- env で.envで指定した環境変数を上書き -->
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
