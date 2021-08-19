@@ -20,6 +20,9 @@ use Tests\TestCase;
  * このファイルの生成コマンド
  * $ php artisan make:test EloquentCustomerPointEventTest --unit
  *
+ * テスト実行
+ * $ make test path=tests/Unit/EloquentCustomerPointEventTest.php
+ *
  * データベーステストにLaravelの機能を利用するので、Tests\TestCaseクラスを継承
  *
  * リスト 9.2.3.1

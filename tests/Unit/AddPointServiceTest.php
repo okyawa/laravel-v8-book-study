@@ -13,8 +13,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
+ * サービスクラスのテスト
+ *
  * このファイルの生成コマンド
  * $ php artisan make:test AddPointServiceTest --unit
+ *
+ * テスト実行
+ * $ make test path=tests/Unit/AddPointServiceTest.php
+ *
+ * リスト 9.2.4.1
  */
 class AddPointServiceTest extends TestCase
 {

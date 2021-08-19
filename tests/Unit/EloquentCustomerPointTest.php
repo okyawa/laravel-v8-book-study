@@ -8,8 +8,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
+ * Eloquentクラスのテスト
+ *
  * このファイルの生成コマンド
  * $ php artisan make:test EloquentCustomerPointTest --unit
+ *
+ * テスト実行
+ * $ make test path=tests/Unit/EloquentCustomerPointTest.php
  *
  * リスト9.2.3.2
  */
