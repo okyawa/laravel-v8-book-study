@@ -3,12 +3,60 @@
 - [サンプルコード掲載のGitHubリポジトリ一覧 | laravel-socym2021 - GitHub](https://github.com/laravel-socym2021)
 
 
+
+
 ---
+
+
 
 
 ## 初期設定
 
 - `.env.example` をコピーして `.env` を設置し、伏せ字の部分を指定
+
+
+
+
+## ローカルサーバの操作
+
+
+### ローカルサーバの起動
+
+```sh
+make up
+```
+
+### ローカルサーバの停止
+
+```sh
+make down
+```
+
+### PHPのローカルサーバのシェルに入る
+
+```sh
+make shell
+```
+
+### MySQLに入る
+
+```sh
+make mysql
+```
+
+### テストの実行
+
+#### 全てのテストを実行
+```sh
+make test
+```
+
+#### 特定のテストファイルだけを実行
+```sh
+make test path=テストファイルのパス
+```
+
+
 
 
 ## 7-2-5 で使うwkhtmltopdfをLaravel Sail内にインストール
