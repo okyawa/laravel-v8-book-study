@@ -75,3 +75,16 @@ Route::post('/import-orders', function (Request $request) {
 
     return response('ok');
 });
+
+
+/**
+ * ping/pong API
+ *
+ * curlコマンドによる実行例
+ * $ curl -v http://localhost/api/ping -w "\n"
+ *
+ * リスト 9.3.1.1
+ */
+Route::get('/ping', function () {
+    return response()->json(['message' => 'pong']);
+});
