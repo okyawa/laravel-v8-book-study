@@ -4,6 +4,7 @@
     "phpunit",
     "regist",
     "reguard",
+    "renderable",
     "unguard"
   ]
 }

@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,8 +35,14 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        /**
+         * リスト 9.3.2.8 エラーレスポンスの設定
+         */
+        $this->renderable(function (PreconditionException $e) {
+            return response()->json(
+                ['message' => trans($e->getMessage())],
+                Response::HTTP_BAD_REQUEST
+            );
         });
     }
 }

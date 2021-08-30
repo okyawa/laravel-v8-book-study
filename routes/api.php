@@ -1,6 +1,7 @@
 <?php
 
 use App\Console\Kernel;
+use App\Http\Controllers\AddPointAction;
 use App\Http\Controllers\ArticlePayloadAction;
 use App\Http\Controllers\PublisherAction;
 use App\Http\Controllers\UserAction;
@@ -88,3 +89,10 @@ Route::post('/import-orders', function (Request $request) {
 Route::get('/ping', function () {
     return response()->json(['message' => 'pong']);
 });
+
+/**
+ * WebAPIテスト
+ *
+ * リスト 9.3.2.5
+ */
+Route::put('/customer/add_point', AddPointAction::class);
