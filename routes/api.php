@@ -95,4 +95,4 @@ Route::get('/ping', function () {
  *
  * リスト 9.3.2.5
  */
-Route::put('/customer/add_point', AddPointAction::class);
+Route::put('/customers/add_point', AddPointAction::class);
