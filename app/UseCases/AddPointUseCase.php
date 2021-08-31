@@ -48,7 +48,7 @@ final class AddPointUseCase
         // 事前処理検証
         if ($addPoint <= 0) {
             throw new PreconditionException(
-                'add_point should be equals or grater than 1'
+                'add_point should be equals or greater than 1'
             );
         }
 
