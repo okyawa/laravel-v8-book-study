@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Fluent\Logger\FluentLogger;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -15,8 +16,10 @@ class Handler extends ExceptionHandler
      * 記録処理から除外する例外クラス名を指定
      *
      * リスト 10.1.3.2
+     *
+     * @var array
      */
-    protected array $dontReport = [
+    protected $dontReport = [
         // \Carbon\Exceptions\InvalidDateException::class,
     ];
 
@@ -53,11 +56,27 @@ class Handler extends ExceptionHandler
     /**
      * 発生した例外をログに書き込む
      *
-     * @param Throwable $e
+     * @param Throwable $exception
      * @return void
      */
-    public function report(Throwable $e)
+    public function report(Throwable $exception)
     {
+        /**
+         * 例外をFluentdに送信する
+         *
+         * このクラスにはコンストラクタインジェクションでフレームワークのApplicationクラス自身が渡されるため、
+         * 親クラスに記述されているcontainerプロパティを通じて、
+         * サービスプロバイダに登録した\Fluent\Logger\FluentLoggerクラスのインスタンスを取得し、
+         * postメソッドを利用してFluentdへ送信する
+         *
+         * リスト 10.1.4.3
+         */
+        // \Illuminate\Foundation\Exceptions\Handlerクラスのreportメソッドを実行
+        /*
+        parent::report($exception);
+        $fluentLogger = $this->container->make(FluentLogger::class);
+        $fluentLogger->post('report', ['error' => $exception->getMessage()]);
+        */
     }
 
     /**

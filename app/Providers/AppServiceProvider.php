@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\DataProvider\PublisherRepositoryInterface;
 use App\Domain\Repository\PublisherRepository;
 use App\Foundation\ViewComposer\PolicyComposer;
+use Fluent\Logger\FluentLogger;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Factory;
 use Knp\Snappy\Pdf;
@@ -34,6 +35,18 @@ class AppServiceProvider extends ServiceProvider
          */
         $this->app->bind(Pdf::class, function() {
             return new PDF('/usr/local/bin/wkhtmltopdf');
+        });
+
+        /**
+         * Fluent\Logger\FluentLoggerクラスの登録
+         *
+         * Fluent\Logger\FluentLoggerクラスをシングルトンでサービスプロバイダへ登録
+         *
+         * リスト 10.1.4.2
+         */
+        $this->app->singleton(FluentLogger::class, function () {
+            // 実際に利用する場合は .envファイルなどでサーバのアドレスとportを指定
+            return new FluentLogger('localhost', 24224);
         });
     }
 
