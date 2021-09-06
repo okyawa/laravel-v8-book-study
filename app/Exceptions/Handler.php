@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
 use Fluent\Logger\FluentLogger;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -97,5 +100,37 @@ class Handler extends ExceptionHandler
                 Response::HTTP_BAD_REQUEST
             );
         });
+    }
+
+    /**
+     * 特定の例外で任意のレスポンスを返却する場合は、renderメソッド内に実装することで対応可能
+     *
+     * 描画するテンプレートを変更する場合は、下記のパスにbladeテンプレートファイルを設置
+     * 404  resources/view/errors/404.blade.php
+     * 419  resources/view/errors/419.blade.php
+     * 429  resources/view/errors/429.blade.php
+     * 500  resources/view/errors/500.blade.php
+     * 503  resources/view/errors/503.blade.php
+     *
+     * @param $request
+     * @param Throwable $exception
+     * @return void
+     */
+    public function render($request, Throwable $exception)
+    {
+        /**
+         * カスタムヘッダを利用したエラーレスポンス実装例
+         *
+         * リスト 10.1.5.3
+         */
+        // 送出されたExceptionクラスを継承したインスタンスのうち、特定の例外のみ処理を変更
+        if ($exception instanceof QueryException) {
+            // カスタムヘッダを利用してエラーレスポンス、ステータスコード500を返却
+            return new Response('', Response::HTTP_INTERNAL_SERVER_ERROR, [
+                'X-App-Message' => 'An error occurred.'
+            ]);
+        }
+
+        return parent::render($request, $exception);
     }
 }
