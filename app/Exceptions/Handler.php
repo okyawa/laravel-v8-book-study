@@ -6,15 +6,18 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
+/**
+ * アプリケーション内でハンドリングされなかった例外のエラーハンドリングを担うクラス
+ */
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of the exception types that are not reported.
+     * 記録処理から除外する例外クラス名を指定
      *
-     * @var array
+     * リスト 10.1.3.2
      */
-    protected $dontReport = [
-        //
+    protected array $dontReport = [
+        // \Carbon\Exceptions\InvalidDateException::class,
     ];
 
     /**
@@ -29,6 +32,37 @@ class Handler extends ExceptionHandler
     ];
 
     /**
+     * Reportメソッドで処理されない例外
+     *
+     * 下記の例外クラスは、例外発生時にApp\Exceptions\Handlerクラスで補足されても、
+     * reportメソッドでは記録する処理が実行されない
+     *
+     * \Illuminate\Auth\AuthenticationException
+     * \Illuminate\Auth\Access\AuthorizationException
+     * \Symfony\Component\HttpKernel\Exception\HttpException
+     * \Illuminate\Http\Exceptions\HttpResponseException
+     * \Illuminate\Database\Eloquent\ModelNotFoundException
+     * \Illuminate\Database\MultipleRecordsFoundException
+     * \Illuminate\Database\HttpFoundation\Exception\SuspiciousOperationException
+     * \Illuminate\Session\TokenMismatchException
+     * \Illuminate\Validation\ValidationException
+     *
+     * 表 10.1.3.1
+     */
+
+    /**
+     * 発生した例外をログに書き込む
+     *
+     * @param Throwable $e
+     * @return void
+     */
+    public function report(Throwable $e)
+    {
+    }
+
+    /**
+     * エラー発生時にレスポンスを生成
+     *
      * Register the exception handling callbacks for the application.
      *
      * @return void
