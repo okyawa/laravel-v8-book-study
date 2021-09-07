@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\DataProvider\PublisherRepositoryInterface;
 use App\Domain\Repository\PublisherRepository;
+use App\Foundation\ElasticsearchClient;
 use App\Foundation\ViewComposer\PolicyComposer;
 use Fluent\Logger\FluentLogger;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Factory;
 use Knp\Snappy\Pdf;
@@ -35,6 +37,16 @@ class AppServiceProvider extends ServiceProvider
          */
         $this->app->bind(Pdf::class, function() {
             return new PDF('/usr/local/bin/wkhtmltopdf');
+        });
+
+        /**
+         * ElasticsearchClientクラスのインスタンス生成方法定義
+         *
+         * リスト 7.3.6.4
+         */
+        $this->app->singleton(ElasticsearchClient::class, function (Application $app) {
+            $config = $app['config']->get('elasticsearch');
+            return new ElasticsearchClient($config['hosts']);
         });
 
         /**
