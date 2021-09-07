@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Factory;
 use Knp\Snappy\Pdf;
+use Monolog\Handler\ElasticsearchHandler;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -77,5 +78,19 @@ class AppServiceProvider extends ServiceProvider
          * リスト 6.5.3.4
          */
         $factory->composer('PolicyComposerを利用したいテンプレート名', PolicyComposer::class);
+
+        /**
+         * Monolog\Handler\ElasticSearchHandlerクラスのサービスプロバイダ登録例
+         *
+         * リスト 10.2.3.3
+         */
+        $this->app->singleton(
+            ElasticsearchHandler::class,
+            function (Application $app) {
+                return new ElasticsearchHandler(
+                    $app->make(ElasticsearchClient::class)->client()
+                );
+            }
+        );
     }
 }

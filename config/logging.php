@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Formatter\ElasticsearchFormatter;
+use Monolog\Handler\ElasticsearchHandler;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -33,6 +35,21 @@ return [
     |                    "custom", "stack"
     |
     */
+
+    /**
+     * Monologハンドラで利用する設定キー (一部抜粋)
+     *
+     * handler          Monologで利用するログハンドラクラスを文字列で指定し、ログドライバを介して利用される
+     * handler_with     handlerで指定したログハンドラクラスのコンストラクタにわたす引数を配列で指定する
+     * formatter        ログハンドラクラスに対応させたフォーマッタークラスを指定する
+     * formatter_with   formatterで指定したフォーマッタクラスのコンストラクタにわたす引数を指定する
+     *
+     * 表 10.2.3.2: Monologハンドラで利用する設定キー
+     *
+     * Monologで提供されているログハンドラは、config/logging.phpでのログドライバ指定時に
+     * handlerやhandler_withを使って記述することで利用できる
+     * 上記のhandlerキーとformatterキーで指定するクラスのインスタンスは、サービスコンテナから取得する
+     */
 
     'channels' => [
         'stack' => [
@@ -103,6 +120,7 @@ return [
 
         /**
          * バッチ処理用ログチャンネルを追加
+         *
          * リスト 8.3.5.4
          */
         'send-orders' => [
@@ -110,6 +128,29 @@ return [
             'path' => storage_path('logs/send-orders.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
+        ],
+
+        /**
+         * elasticsearchドライバ設定
+         *
+         * Monolog\Handler\ElasticsearchHandlerを利用する場合、
+         * フォーマッタークラスはMonolog\Formatter\ElasticsearchFormatterクラス、
+         * またはその継承クラスである必要がある
+         * このクラスの引数に必要なのは、Elasticsearchで利用するインデックス名とドキュメントタイプになる
+         * formatterキーとformatter_withキーを利用することで対応付けることが可能
+         *
+         * Monolog\Handler\ElasticsearchHandlerは、シングルトンでサービスプロバイダに登録済みの状態
+         *
+         * リスト 10.2.3.4
+         */
+        'elasticsearch' => [
+            'driver' => 'monolog',
+            'handler' => ElasticsearchHandler::class,
+            'formatter' => ElasticsearchFormatter::class,
+            'formatter_with' => [
+                'index' => 'app_log',
+                'type' => '_doc',
+            ]
         ],
     ],
 
