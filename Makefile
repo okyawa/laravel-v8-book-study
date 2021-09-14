@@ -68,7 +68,7 @@ mysql:
 
 # ユニットテスト用のMySQLのコンテナに接続
 mysql-test-shell:
-	docker exec -it sample_mysql.test_1 bash
+	docker exec -it laravel-v8-book-study_mysql.test_1 bash
 .PHONY: mysql-test-shell
 
 # ユニットテスト用のMySQLコンテナ内からMySQLに接続 (※入力後に聞かれるパスワードは .env に記載しているパスワード)
